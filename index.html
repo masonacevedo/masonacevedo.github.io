@@ -3,8 +3,33 @@
   <head>
     <meta charset="utf-8">
     <title>Mason's first website! </title>
+    <style>
+    h1 {
+      color: rgb(0,0,139);
+      text-align: center;
+      font-family: Verdana, Helvetica, sans-serif;
+    }
+    </style>
   </head>
     <body>
-      <h1>Here it is! </h1>
+      <h1 id = "falling words">
+        Click the text to make the words drop! (in progress):
+      </h1>
+      <script>
+        // console.log("Hello world!");
+        // document.body.innerHTML = "These are words?";
+        var fallingWords = document.getElementById('falling words');
+        function onAPress() {
+          var keyName = event.key;
+
+          if (keyName === "a"){
+            fallingWords.textContent = "An 'a' was pressed!";
+          }
+          else {
+            fallingWords.textContent = "The words have changed!";
+          }
+        }
+        fallingWords.addEventListener("keydown",onAPress);
+      </script>
     </body>
 </html>
