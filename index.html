@@ -20,13 +20,13 @@
         // document.body.innerHTML = "These are words?";
         var fallingWords = document.getElementById('falling words');
         function onAPress() {
-          var keyName = event.key;
+          const keyName = event.key;
 
           if (keyName === "a"){
-            fallingWords.textContent = "An 'a' was pressed!";
+            fallingWords.textContent = "The 'a' was pressed!";
           }
           else {
-            fallingWords.textContent = "The words have changed!";
+            fallingWords.textContent = "The 'a' was not pressed.";
           }
         }
         fallingWords.addEventListener("keydown",onAPress);
