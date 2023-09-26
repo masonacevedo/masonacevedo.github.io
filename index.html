@@ -14,33 +14,44 @@
   </head>
     <body>
       <h1 id = "falling words">
-        Press 'a' to make the words drop!: (in progress)
+        Press 'a' to make the words drop!
       </h1>
       <script>
-        // console.log("Hello world!");
-        // document.body.innerHTML = "These are words?";
+
         var fallingWords = document.getElementById('falling words');
         var currentPosition = 0;
         var windowHeight = window.innerHeight;
         var textHeight = fallingWords.clientHeight;
+        var t = 0;
 
         function onAPress() {
           const keyName = event.key;
           if (keyName === "a"){
-            dropText();
+            fallingWords.textContent = "'a' was pressed!";
+            dropWords();
           }
-          else {
-            fallingWords.textContent = "A key other than 'a' was pressed.";
-          }
-        }
-        function dropText(){
-          if (currentPosition + textHeight< windowHeight) {
-            currentPosition += 1;
-            fallingWords.style.top = currentPosition + 'px'
-            requestAnimationFrame(dropText);
+          else if (keyName === "b") {
+            fallingWords.style.top = 0;
+            currentPosition = 0;
+            fallingWords.textContent = "Press 'a' to make the words drop!";
+            t = 0;
           }
         }
+        function dropWords(){
+          if ((currentPosition + textHeight) < windowHeight) {
+            t += 1;
+            currentPosition += calculateDrop();
+            fallingWords.style.top = currentPosition + 'px';
+            requestAnimationFrame(dropWords);
+          }
+        }
+
+        function calculateDrop(){
+          return ((1/1000)*(t*t));
+        }
+
         addEventListener("keydown",onAPress);
+
       </script>
     </body>
 </html>
