@@ -22,10 +22,10 @@
         var windowHeight = window.innerHeight;
         var textHeight = fallingWords.clientHeight;
 
-        var t = 0;
-        var delta_t = 1
+        const delta_t = 1
         var x_pos = 0;
         var y_pos = 0;
+        var isMoving = false;
         let x_vel;
         let y_vel;
 
@@ -33,8 +33,16 @@
           const keyName = event.key;
           if (keyName === "a"){
             fallingWords.textContent = "'a' was pressed!";
-            x_vel = (Math.random()*5)-2.5;
-            y_vel = 0;
+            x_vel = (Math.random()*3)-1.5;
+            y_vel = -3;
+
+            // this makes sure the animation frames don't
+            // stack on top of each other when 'a' is pressed multiple times.
+            if (isMoving){
+              cancelAnimationFrame(current_animation_id);
+            }
+
+            isMoving = true;
             moveWords();
           }
           else if (keyName === "b") {
@@ -45,21 +53,24 @@
             y_vel = 0;
             x_pos = 0;
             x_vel = 0;
+            isMoving = false;
 
-            t = 0;
           }
         }
         function moveWords(){
-          if ((y_pos + textHeight) < (0.85*windowHeight)) {
-            x_pos += calculateXChange();
-            y_pos += calculateYChange();
-            fallingWords.style.top = y_pos + 'px';
-            fallingWords.style.left = x_pos + 'px'
-            t += delta_t;
-            requestAnimationFrame(moveWords);
-          }
-          else {
-          fallingWords.textContent = "Press 'b' to reset.";
+          if (isMoving) {
+            if ((y_pos + textHeight) < (0.85*windowHeight)){
+              x_pos += calculateXChange();
+              y_pos += calculateYChange();
+              fallingWords.style.top = y_pos + 'px';
+              fallingWords.style.left = x_pos + 'px'
+              // fallingWords.textContent = y_vel;
+              var current_animation_id = requestAnimationFrame(moveWords);
+            }
+            else {
+              fallingWords.textContent = "Press 'b' to reset.";
+              isMoving = false;
+            }
           }
         }
 
