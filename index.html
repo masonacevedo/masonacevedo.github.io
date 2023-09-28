@@ -19,38 +19,57 @@
       <script>
 
         var fallingWords = document.getElementById('falling words');
-        var currentPosition = 0;
         var windowHeight = window.innerHeight;
         var textHeight = fallingWords.clientHeight;
+
         var t = 0;
+        var delta_t = 1
+        var x_pos = 0;
+        var y_pos = 0;
+        let x_vel;
+        let y_vel;
 
         function onAPress() {
           const keyName = event.key;
           if (keyName === "a"){
             fallingWords.textContent = "'a' was pressed!";
-            dropWords();
+            x_vel = (Math.random()*5)-2.5;
+            y_vel = 0;
+            moveWords();
           }
           else if (keyName === "b") {
             fallingWords.style.top = 0;
-            currentPosition = 0;
+            fallingWords.style.left = 0;
             fallingWords.textContent = "Press 'a' to make the words drop!";
+            y_pos = 0;
+            y_vel = 0;
+            x_pos = 0;
+            x_vel = 0;
+
             t = 0;
           }
         }
-        function dropWords(){
-          if ((currentPosition + textHeight) < (0.85*windowHeight)) {
-            t += 1;
-            currentPosition += calculateDrop();
-            fallingWords.style.top = currentPosition + 'px';
-            requestAnimationFrame(dropWords);
+        function moveWords(){
+          if ((y_pos + textHeight) < (0.85*windowHeight)) {
+            x_pos += calculateXChange();
+            y_pos += calculateYChange();
+            fallingWords.style.top = y_pos + 'px';
+            fallingWords.style.left = x_pos + 'px'
+            t += delta_t;
+            requestAnimationFrame(moveWords);
           }
           else {
           fallingWords.textContent = "Press 'b' to reset.";
           }
         }
 
-        function calculateDrop(){
-          return ((8/1000)*(t*t));
+        function calculateYChange(){
+          y_vel += ((10/100)*(delta_t));
+          return (y_vel) * (delta_t);
+        }
+
+        function calculateXChange(){
+          return (x_vel) * (delta_t);
         }
 
         addEventListener("keydown",onAPress);
