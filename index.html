@@ -29,10 +29,12 @@
         let x_vel;
         let y_vel;
 
-        function onAPress() {
+        function onClick() {
           const keyName = event.key;
+          // fallingWords.textContent = keyName;
+          // fallingWords.textContent = "Here!";
           if (keyName === "a"){
-            fallingWords.textContent = "'a' was pressed!";
+            fallingWords.textContent = "Press 'a' again!";
             x_vel = (Math.random()*3)-1.5;
             y_vel = -3;
 
@@ -83,7 +85,7 @@
           return (x_vel) * (delta_t);
         }
 
-        addEventListener("keydown",onAPress);
+        addEventListener("keydown",onClick);
 
       </script>
     </body>
