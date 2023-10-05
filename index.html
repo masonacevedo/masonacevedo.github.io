@@ -31,8 +31,6 @@
 
         function onClick() {
           const keyName = event.key;
-          // fallingWords.textContent = keyName;
-          // fallingWords.textContent = "Here!";
           if (keyName === "a"){
             fallingWords.textContent = "Press 'a' again!";
             x_vel = (Math.random()*3)-1.5;
@@ -66,7 +64,6 @@
               y_pos += calculateYChange();
               fallingWords.style.top = y_pos + 'px';
               fallingWords.style.left = x_pos + 'px'
-              // fallingWords.textContent = y_vel;
               var current_animation_id = requestAnimationFrame(moveWords);
             }
             else {
