@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Mason's first website! </title>
+    <title> Is Bird? </title>
     <style>
     h1 {
       color: rgb(0,0,139);
@@ -13,76 +13,11 @@
     </style>
   </head>
     <body>
-      <h1 id = "falling words">
-        Press 'a' to make the words bounce!
+      <h1 id = "">
+        Please upload some text, and I'll tell you whether it says 'bird'!
       </h1>
+      <input type="text" name = "blah" placeholder="Enter the text here">
       <script>
-
-        var fallingWords = document.getElementById('falling words');
-        var windowHeight = window.innerHeight;
-        var textHeight = fallingWords.clientHeight;
-
-        const delta_t = 1
-        var x_pos = 0;
-        var y_pos = 0;
-        var isMoving = false;
-        let x_vel;
-        let y_vel;
-
-        function onClick() {
-          const keyName = event.key;
-          if (keyName === "a"){
-            fallingWords.textContent = "Press 'a' again!";
-            x_vel = (Math.random()*3)-1.5;
-            y_vel = -3;
-
-            // this makes sure the animation frames don't
-            // stack on top of each other when 'a' is pressed multiple times.
-            if (isMoving){
-              cancelAnimationFrame(current_animation_id);
-            }
-
-            isMoving = true;
-            moveWords();
-          }
-          else if (keyName === "b") {
-            fallingWords.style.top = 0;
-            fallingWords.style.left = 0;
-            fallingWords.textContent = "Press 'a' to make the words bounce!";
-            y_pos = 0;
-            y_vel = 0;
-            x_pos = 0;
-            x_vel = 0;
-            isMoving = false;
-
-          }
-        }
-        function moveWords(){
-          if (isMoving) {
-            if ((y_pos + textHeight) < (0.85*windowHeight)){
-              x_pos += calculateXChange();
-              y_pos += calculateYChange();
-              fallingWords.style.top = y_pos + 'px';
-              fallingWords.style.left = x_pos + 'px'
-              var current_animation_id = requestAnimationFrame(moveWords);
-            }
-            else {
-              fallingWords.textContent = "Press 'b' to reset.";
-              isMoving = false;
-            }
-          }
-        }
-
-        function calculateYChange(){
-          y_vel += ((10/100)*(delta_t));
-          return (y_vel) * (delta_t);
-        }
-
-        function calculateXChange(){
-          return (x_vel) * (delta_t);
-        }
-
-        addEventListener("keydown",onClick);
 
       </script>
     </body>
