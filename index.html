@@ -16,7 +16,7 @@
       <h1 id = "Instructions">
         Please upload some text, and I'll tell you whether it says 'bird'!
       </h1>
-      <input id = "textinput" type="text" name = "blah" placeholder="Enter the text here">
+       <input id = "textinput" type="text" name = "blah" placeholder="Enter the text here">
       <script>
         document.getElementById('textinput').addEventListener("change",oninput);
 
@@ -24,7 +24,7 @@
             let currentValue = event.target.value;
             words_on_page = document.getElementById("Instructions");
             if (currentValue === "bird"){
-                words_on_page.textContent = "That word says 'bird'!";
+                words_on_page.textContent = "That says 'bird'!";
             }
             else {
                 words_on_page.textContent = "That does NOT say 'bird'!";
