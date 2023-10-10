@@ -13,16 +13,22 @@
     </style>
   </head>
     <body>
-      <h1 id = "">
+      <h1 id = "Instructions">
         Please upload some text, and I'll tell you whether it says 'bird'!
       </h1>
       <input id = "textinput" type="text" name = "blah" placeholder="Enter the text here">
       <script>
-        document.getElementById('textinput').addEventListener("change",oninput)
+        document.getElementById('textinput').addEventListener("change",oninput);
 
         function oninput(){
             let currentValue = event.target.value;
-            console.log(currentValue);
+            words_on_page = document.getElementById("Instructions");
+            if (currentValue === "bird"){
+                words_on_page.textContent = "That word says 'bird'!";
+            }
+            else {
+                words_on_page.textContent = "That does NOT say 'bird'!";
+            }
         }
       </script>
     </body>
