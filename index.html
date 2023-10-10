@@ -16,18 +16,20 @@
       <h1 id = "Instructions">
         Please upload some text, and I'll tell you whether it says 'bird'!
       </h1>
-       <input id = "textinput" type="text" name = "blah" placeholder="Enter the text here">
+      <form>
+        <input id = "textinput" type="text" name = "blah" placeholder="Enter the text here">
+      </form>
       <script>
         document.getElementById('textinput').addEventListener("change",oninput);
 
         function oninput(){
             let currentValue = event.target.value;
             words_on_page = document.getElementById("Instructions");
-            if (currentValue === "bird"){
-                words_on_page.textContent = "That says 'bird'!";
+            if (currentValue.includes("bird")){
+                words_on_page.textContent = "That text contains 'bird'!";
             }
             else {
-                words_on_page.textContent = "That does NOT say 'bird'!";
+                words_on_page.textContent = "That text does NOT contain 'bird'!";
             }
         }
       </script>
