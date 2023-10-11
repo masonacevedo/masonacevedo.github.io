@@ -14,7 +14,7 @@
   </head>
     <body>
       <h1 id = "Instructions">
-        Please upload some text, and I'll tell you whether it says 'bird'!
+        Please upload some text, and I'll tell you whether it contains 'bird'!
       </h1>
       <!-- <form> -->
         <input id = "textinput" type="text" name = "blah" placeholder="Enter the text here">
@@ -22,7 +22,7 @@
       <script>
         document.getElementById('textinput').addEventListener("change",oninput);
 
-        function oninput(){
+        function oninput(event){
             let currentValue = event.target.value;
             words_on_page = document.getElementById("Instructions");
             if (currentValue.includes("bird")){
