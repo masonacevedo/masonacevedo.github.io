@@ -16,22 +16,31 @@
       <h1 id = "Instructions">
         Please upload some text, and I'll tell you whether it contains 'bird'!
       </h1>
-      <form action="http://127.0.0.1:5000" method = "post">
-        <input id = "textinput" type="text" name = "blah" placeholder="Enter the text here">
+      <form id = "textForm">
+        <input id = "textInput" type="text" name = "user_input" placeholder="Enter the text here">
       </form>
+      <div id = "result"></div>
       <script>
-        document.getElementById('textinput').addEventListener("change",oninput);
+        let user_input = document.getElementById("textInput").value;
+        let formData = new FormData();
 
-        function oninput(event){
-            let currentValue = event.target.value;
-            words_on_page = document.getElementById("Instructions");
-            if (currentValue.includes("bird")){
-                words_on_page.textContent = "That text contains 'bird'!";
+        formData.append("user_input",user_input);
+
+        fetch("http://127.0.0.1:5000/check-for-bird", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            resultElement = document.getElementById("result");
+            if (data.contains_bird === True) {
+                resultElement.innerText = "The string contains the word 'bird'!";
             }
             else {
-                words_on_page.textContent = "That text does NOT contain 'bird'!";
+                resultElement.innerText = "The string does NOT contains the word 'bird'!";
             }
-        }
+        })
+
       </script>
     </body>
 </html>
