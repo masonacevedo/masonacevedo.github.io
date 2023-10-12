@@ -33,6 +33,7 @@
         .then(response => response.json())
         .then(data => {
             resultElement = document.getElementById("result");
+            console.log(data.contains_bird);
             if (data.contains_bird === true) {
                 resultElement.innerText = "The string contains the word 'bird'!";
             }
