@@ -1,6 +1,8 @@
 import flask
+import flask_cors
 
 app = flask.Flask(__name__)
+flask_cors.CORS(app, origins=["https://masonacevedo.github.io"])
 
 @app.route('/check-for-bird', methods = ["POST"])
 def check_for_bird():
