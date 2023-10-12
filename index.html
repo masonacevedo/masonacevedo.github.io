@@ -18,29 +18,37 @@
       </h1>
       <form id = "textForm">
         <input id = "textInput" type="text" name = "user_input" placeholder="Enter the text here">
+        <button type="button" id="checkButton">Check for presence of "bird".</button>
       </form>
       <div id = "result"></div>
       <script>
-        let user_input = document.getElementById("textInput").value;
-        let formData = new FormData();
 
-        formData.append("user_input",user_input);
+        buttonElement = document.getElementById("checkButton");
+        buttonElement.addEventListener("click", onClick);
 
-        fetch("http://127.0.0.1:5000/check-for-bird", {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            resultElement = document.getElementById("result");
-            console.log(data.contains_bird);
-            if (data.contains_bird === true) {
-                resultElement.innerText = "The string contains the word 'bird'!";
-            }
-            else {
-                resultElement.innerText = "The string does NOT contains the word 'bird'!";
-            }
-        })
+        function onClick(){
+            let user_input = document.getElementById("textInput").value;
+            let formData = new FormData();
+
+            formData.append("user_input",user_input);
+
+            fetch("http://127.0.0.1:5000/check-for-bird", {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                resultElement = document.getElementById("result");
+                console.log(data.contains_bird);
+                if (data.contains_bird === true) {
+                    resultElement.innerText = "The string contains the word 'bird'!";
+                }
+                else {
+                    resultElement.innerText = "The string does NOT contains the word 'bird'!";
+                }
+            })
+        }
+        
 
       </script>
     </body>
