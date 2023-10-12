@@ -14,39 +14,47 @@
   </head>
     <body>
       <h1 id = "Instructions">
-        Please upload some text, and I'll tell you whether it contains 'bird'!
+        Please upload an image, and I'll tell you the dimensions of the image!
       </h1>
       <form id = "textForm">
-        <input id = "textInput" type="text" name = "user_input" placeholder="Enter the text here">
+        <input id = "imageInput" type="file" name = "user_image" accept="image/*">
         <button type="button" id="checkButton">Check for presence of "bird".</button>
       </form>
       <div id = "result"></div>
       <script>
 
-        buttonElement = document.getElementById("checkButton");
+        const buttonElement = document.getElementById("checkButton");
         buttonElement.addEventListener("click", onClick);
 
         function onClick(){
-            let user_input = document.getElementById("textInput").value;
-            let formData = new FormData();
+            const imageFile = document.getElementById("imageInput").files[0];
+            const formData = new FormData();
 
-            formData.append("user_input",user_input);
+            formData.append("user_image",imageFile);
 
             fetch("http://127.0.0.1:5000/check-for-bird", {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                resultElement = document.getElementById("result");
-                console.log(data.contains_bird);
-                if (data.contains_bird === true) {
-                    resultElement.innerText = "The string contains the word 'bird'!";
+            .then(response => {
+                if (!response.ok){
+                    throw new Error (`HTTP error! Status: ${response.status}`)
                 }
-                else {
-                    resultElement.innerText = "The string does NOT contains the word 'bird'!";
-                }
+                return response.json();
             })
+            .then(data => {
+                const resultElement = document.getElementById("result");
+                const width = String(data.width);
+                const height = String(data.height);
+                resultElement.innerText = "Your uploaded image is " + width + " pixels wide and " + height  + " pixels tall.";
+            })
+            .catch(error => {
+                console.error("Fetch error: " + error.message);
+                const resultElement = document.getElementById("result");
+                resultElement.innerText = "An error occured: " + error.message;
+            }
+
+            )
         }
         
 
