@@ -4,7 +4,24 @@ import torch
 import torchvision
 import PIL
 import io
+import pathlib
 
+from fastai.vision.all import *
+from fastai.callback.core import Callback
+
+class MyVerboseCallback(Callback):
+    def after_batch(self):
+        if self.iter % 100 == 0:
+            print(f"Batch: {self.iter}, Training Loss: {self.loss}")
+
+
+posix_backup = pathlib.PosixPath
+try:
+    pathlib.PosixPath = pathlib.WindowsPath
+    model_path = pathlib.Path("C:/Users/undoc/Desktop/Fun_Stuff/Code/Github_Stuff/masonacevedo.github.io/fast_ai_model_with_normalization_with_architecture.pkl")
+    learn_inf = load_learner(model_path)
+finally:
+    pathlib.PosixPath = posix_backup
 
 app = flask.Flask(__name__)
 flask_cors.CORS(app, origins=["https://masonacevedo.github.io"])
