@@ -14,7 +14,7 @@
   </head>
     <body>
       <h1 id = "Instructions">
-        Please upload an image, and I'll tell you the dimensions of the image!
+        Please upload an image, and I'll tell you whether the image is a bird!
       </h1>
       <form id = "textForm">
         <input id = "imageInput" type="file" name = "user_image" accept="image/*">
@@ -47,9 +47,9 @@
                 const prediction = String(data.prediction);
                 const probability = String(data.probability);
                 if (prediction === "bird"){
-                  resultElement.innerText = "The image is a bird! I'm " + probability + "% sure about it.";
+                  resultElement.innerText = "The image is a bird! I think there's a " + probability + "% chance the image is a bird.";
                 } else{
-                  resultElement.innerText = "The image is NOT a bird! I'm " + probability + "% sure about it.";
+                  resultElement.innerText = "The image is NOT a bird! I think there's a " + probability + "% chance the image is NOT a bird.";
                 }
                 
             })
