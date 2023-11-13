@@ -44,9 +44,14 @@
             })
             .then(data => {
                 const resultElement = document.getElementById("result");
-                const width = String(data.width);
-                const height = String(data.height);
-                resultElement.innerText = "Your uploaded image is " + width + " pixels wide and " + height  + " pixels tall.";
+                const prediction = String(data.prediction);
+                const probability = String(data.probability);
+                if (prediction === "bird"){
+                  resultElement.innerText = "The image is a bird! I'm " + probability + "% sure about it.";
+                } else{
+                  resultElement.innerText = "The image is NOT a bird! I'm " + probability + "% sure about it.";
+                }
+                
             })
             .catch(error => {
                 console.error("Fetch error: " + error.message);
