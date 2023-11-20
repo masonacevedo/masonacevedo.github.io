@@ -1,8 +1,8 @@
 import flask
 import flask_cors
-import torch
-import torchvision
-import PIL
+# import torch
+# import torchvision
+# import PIL
 import io
 import pathlib
 
@@ -30,10 +30,16 @@ def check_for_bird():
     if image is None:
         return flask.jsonify(error = "No image provided"),400
 
-    print("Image:")
-    print(image)
+    
 
+    
+    # I have no idea why, but saving these images fixes an annoying bug I was 
+    # running into, so that's here. Also, we need the above line
+    # ^ where RBGA images are converted to RGB in order to make the saving work. 
     PIL_image_object = Image.open(io.BytesIO(image.read()))
+    if PIL_image_object.mode == "RGBA":
+        PIL_image_object = PIL_image_object.convert('RGB')
+    
     PIL_image_object.save("C:/Users/undoc/Downloads/pil_image.jpg")
     fastai_image = PILImage.create(PIL_image_object)
     fastai_image.save("C:/Users/undoc/Downloads/fast_image.jpg")
